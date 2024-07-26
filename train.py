@@ -40,7 +40,7 @@ def main():
     utils.write_config_to_file(args, save_dir)
 
     global device
-    device = torch.device('cuda')
+    device = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('mps')
     global celoss
     celoss = torch.nn.BCEWithLogitsLoss()
 

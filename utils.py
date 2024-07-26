@@ -1,12 +1,13 @@
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np
+import pandas as pd
 import torch
 from torchvision import datasets, transforms
-from torch.utils.data import TensorDataset, DataLoader
+from torch.utils.data import TensorDataset, DataLoader, Dataset
 from PIL import Image
 import os
-
+from torchvision.datasets.utils import verify_str_arg
 
 def draw_recon(x, x_recon):
     x_l, x_recon_l = x.tolist(), x_recon.tolist()
@@ -31,6 +32,10 @@ def write_config_to_file(config, save_path):
         for arg in vars(config):
             file.write(str(arg) + ': ' + str(getattr(config, arg)) + '\n')
 
+# class FloodDataset(Dataset):
+#     def __init__(self) -> None:
+        
+
 
 def make_dataloader(args):
 
@@ -46,12 +51,15 @@ def make_dataloader(args):
         ])
         train_set = datasets.CelebA(args.data_dir, split='train', download=False, transform=trans_f)
         train_loader = torch.utils.data.DataLoader(train_set, batch_size=args.batch_size, shuffle=True, pin_memory=False,
-                                                   drop_last=True, num_workers=4)
+                                                   drop_last=True, num_workers=args.dataloader_workers)
 
     elif 'pendulum' in args.dataset:
         train_set = dataload_withlabel(args.data_dir, image_size = args.image_size,
                                        mode='train', sup_prop=args.sup_prop)
-        train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, drop_last=True, num_workers=4)
+        train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, drop_last=True, num_workers=args.dataloader_workers)
+
+    elif 'flood' in args.dataset:
+
 
     return train_loader, test_loader
 
