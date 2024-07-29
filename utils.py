@@ -32,10 +32,19 @@ def write_config_to_file(config, save_path):
         for arg in vars(config):
             file.write(str(arg) + ': ' + str(getattr(config, arg)) + '\n')
 
-# class FloodDataset(Dataset):
-#     def __init__(self) -> None:
-        
+class FloodDataset(Dataset):
+    def __init__(self, labels_file, data_dir, sampling_size=256) -> None:
+        # by default, annotated images will start with "pre_" or "post_"
+        self.data_dir = data_dir
+        self.annotations = pd.read_csv(data_dir)
+        self.sampling_size = sampling_size
 
+    def __len__(self) -> int:
+        return self.annotations.shape[0]
+        
+    def __getitem__(self,idx):
+        img_path = os.path.join(self.data_dir,self.annotations.iat[idx, 0],".tif")
+        
 
 def make_dataloader(args):
 
@@ -58,7 +67,7 @@ def make_dataloader(args):
                                        mode='train', sup_prop=args.sup_prop)
         train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, drop_last=True, num_workers=args.dataloader_workers)
 
-    elif 'flood' in args.dataset:
+    # elif 'flood' in args.dataset:
 
 
     return train_loader, test_loader

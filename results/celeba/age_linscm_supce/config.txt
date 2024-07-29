@@ -1,0 +1,43 @@
+image_size: 64
+dataset: celeba
+data_dir: /exports/eddie/scratch/ywu5/CelebA_Dataset/
+dataloader_workers: 8
+batch_size: 128
+lr_g: 5e-05
+lr_e: 5e-05
+lr_d: 0.0001
+lr_p: 5e-05
+lr_a: 0.001
+beta1: 0.0
+beta2: 0.999
+d_steps_per_iter: 1
+g_steps_per_iter: 1
+n_epochs: 200
+start_epoch: 1
+seed: 51
+latent_dim: 100
+sup_coef: 5.0
+sup_prop: 1.0
+sup_type: ce
+labels: age
+prior: linscm
+enc_arch: resnet
+enc_dist: gaussian
+enc_fc_size: 1024
+enc_noise_dim: 128
+dec_arch: sagan
+dec_dist: implicit
+g_conv_dim: 32
+dis_fc_size: 512
+d_conv_dim: 32
+resume: False
+ckpt_dir: 
+print_every: 500
+sample_every: 1
+sample_every_epoch: 5
+save_model_every: 5
+save_name: 
+save_n_samples: 64
+save_n_recons: 32
+nrow: 8
+commond: python train.py --data_dir /exports/eddie/scratch/ywu5/CelebA_Dataset/ --dataloader_workers 8 --labels age --dec_dist implicit --d_steps_per_iter 1 --sample_every_epoch 5 --latent_dim 100 --enc_arch resnet --save_model_every 5 --n_epochs 200 --prior linscm --sup_prop 1 --sup_coef 5 --sup_type ce

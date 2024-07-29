@@ -25,13 +25,16 @@ def main():
 
     if 'pendulum' in args.dataset:
         label_idx = range(4)
-    else:
+    elif 'celeba' in args.dataset:
         if args.labels == 'smile':
             label_idx = [31, 20, 19, 21, 23, 13]
         elif args.labels == 'age':
             label_idx = [39, 20, 28, 18, 13, 3]
         else:
             raise NotImplementedError("Not supported structure.")
+    # for flood dataset, 7 vars by default
+    else:
+        lebel_idx = range(7)
     num_label = len(label_idx)
 
     save_dir = './results/{}/{}_{}_sup{}/'.format(

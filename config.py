@@ -7,7 +7,7 @@ def get_config():
 
     # Data settings
     parser.add_argument('--image_size', type=int, default=64)
-    parser.add_argument('--dataset', type=str, default='celeba', choices=['celeba', 'pendulum'])
+    parser.add_argument('--dataset', type=str, default='celeba', choices=['celeba', 'pendulum', 'flood'])
     parser.add_argument('--data_dir', type=str, default='~/local/data', help='data directory')
     parser.add_argument('--dataloader_workers', type=int, default=4, help='number of workers in the dataloader')
 
