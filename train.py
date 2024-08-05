@@ -34,7 +34,7 @@ def main():
             raise NotImplementedError("Not supported structure.")
     # for flood dataset, 7 vars by default
     else:
-        lebel_idx = range(7)
+        label_idx = range(7)
     num_label = len(label_idx)
 
     save_dir = './results/{}/{}_{}_sup{}/'.format(
@@ -70,6 +70,19 @@ def main():
         elif args.labels == 'pend':
             A[0, 2:4] = 1
             A[1, 2:4] = 1
+        elif args.labels == 'flood':
+            # prior:
+            # building -> road, plant, shadow;
+            # flood -> soil deposit; soil deposit -> road
+            # soil deposit -> plants, road -> plants
+            # river -> flood
+
+            A[0, 1:3] = 1
+            A[3, 4] = 1
+            A[0, 6] = 1
+            A[4, 1:3] = 1
+            A[1, 2] = 1
+            A[5, 3] = 1
     else:
         A = None
 

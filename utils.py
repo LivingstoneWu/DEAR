@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import torch
 from torchvision import datasets, transforms
+from torchvision.transforms import v2
 from torch.utils.data import TensorDataset, DataLoader, Dataset
 from PIL import Image
 import os
@@ -38,13 +39,27 @@ class FloodDataset(Dataset):
         self.data_dir = data_dir
         self.annotations = pd.read_csv(data_dir)
         self.sampling_size = sampling_size
+        # transform, with 256x256 resize and augmentation, normalization
+        self.transform = v2.Compose([
+            v2.Resize((256, 256)),
+            v2.ToTensor(),
+            v2.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+            v2.RandomHorizontalFlip(),
+            v2.RandomVerticalFlip(),
+            v2.RandomRotation(90),
+            v2.GaussianNoise()
+        ])
 
     def __len__(self) -> int:
         return self.annotations.shape[0]
         
-    def __getitem__(self,idx):
+    def __getitem__(self, idx):
         img_path = os.path.join(self.data_dir,self.annotations.iat[idx, 0],".tif")
-        
+        image_tensor = torch.from_numpy(np.array(Image.open(img_path)))
+        labels = self.annotations.iat[idx, 1:]
+        # transform
+
+        return image_tensor, labels
 
 def make_dataloader(args):
 
