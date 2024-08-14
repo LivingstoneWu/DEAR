@@ -1,7 +1,10 @@
 image_size: 64
 dataset: celeba
-data_dir: /exports/eddie/scratch/ywu5/CelebA_Dataset/
+data_dir: E:/Projects/CRL/CelebA_Dataset/
 dataloader_workers: 8
+annotation_path: annotations.csv
+sampling_size: 256
+unlabelled_data_dir: E:/Projects/CRL/Flood_CRL_demo/unlabelled_samples/
 batch_size: 128
 lr_g: 5e-05
 lr_e: 5e-05
@@ -40,4 +43,4 @@ save_name:
 save_n_samples: 64
 save_n_recons: 32
 nrow: 8
-commond: python train.py --data_dir /exports/eddie/scratch/ywu5/CelebA_Dataset/ --dataloader_workers 8 --labels age --dec_dist implicit --d_steps_per_iter 1 --sample_every_epoch 5 --latent_dim 100 --enc_arch resnet --save_model_every 5 --n_epochs 200 --prior linscm --sup_prop 1 --sup_coef 5 --sup_type ce
+commond: python C:\Users\Administrator\Desktop\Ed-RA\DEAR\train.py --data_dir E:/Projects/CRL/CelebA_Dataset/ --dataloader_workers 8 --labels age --dec_dist implicit --d_steps_per_iter 1 --sample_every_epoch 5 --latent_dim 100 --enc_arch resnet --save_model_every 5 --n_epochs 200 --prior linscm --sup_prop 1 --sup_coef 5 --sup_type ce

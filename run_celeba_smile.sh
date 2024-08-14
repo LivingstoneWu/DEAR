@@ -1,4 +1,4 @@
-python train.py --data_dir /exports/eddie/scratch/ywu5/CelebA_Dataset/ \
+python train.py --data_dir E:/Projects/CRL/CelebA_Dataset/ \
                 --dataloader_workers 8 \
                 --labels age \
                 --dec_dist implicit \

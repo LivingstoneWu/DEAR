@@ -30,6 +30,8 @@ def main():
             label_idx = [31, 20, 19, 21, 23, 13]
         elif args.labels == 'age':
             label_idx = [39, 20, 28, 18, 13, 3]
+        elif args.labels == 'flood':
+            label_idx = range(1, 8)
         else:
             raise NotImplementedError("Not supported structure.")
     # for flood dataset, 7 vars by default
@@ -52,6 +54,9 @@ def main():
     torch.cuda.manual_seed(args.seed)
 
     train_loader, test_loader = utils.make_dataloader(args)
+    print(len(train_loader))
+    test_image, test_label = next(iter(train_loader))
+    print(test_image.shape)
     log_file_name = os.path.join(save_dir, 'log.txt')
     global log_file
     if args.resume:
@@ -78,11 +83,11 @@ def main():
             # river -> flood
 
             A[0, 1:3] = 1
-            A[3, 4] = 1
-            A[0, 6] = 1
-            A[4, 1:3] = 1
-            A[1, 2] = 1
-            A[5, 3] = 1
+            # A[3, 4] = 1
+            # A[0, 6] = 1
+            # A[4, 1:3] = 1
+            # A[1, 2] = 1
+            # A[5, 3] = 1
     else:
         A = None
 

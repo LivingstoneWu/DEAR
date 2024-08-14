@@ -10,6 +10,9 @@ def get_config():
     parser.add_argument('--dataset', type=str, default='celeba', choices=['celeba', 'pendulum', 'flood'])
     parser.add_argument('--data_dir', type=str, default='~/local/data', help='data directory')
     parser.add_argument('--dataloader_workers', type=int, default=4, help='number of workers in the dataloader')
+    parser.add_argument('--annotation_path', type=str, default='annotations.csv', help='annotation file path, for flood dataset')
+    parser.add_argument('--sampling_size', type=int, default=256, help='size of the resampled image')
+    parser.add_argument('--unlabelled_data_dir', type=str, default='E:/Projects/CRL/Flood_CRL_demo/unlabelled_samples/')
 
     # Training settings
     parser.add_argument('--batch_size', type=int, default=128)

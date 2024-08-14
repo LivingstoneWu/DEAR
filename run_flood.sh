@@ -1,5 +1,7 @@
-python train.py --data_dir /exports/eddie/scratch/ywu5/CelebA_Dataset/ \
-                --dataloader_workers 8 \
+python train.py --data_dir E:/Projects/CRL/Flood_CRL_demo/labelled_samples/labelled_samples/ \
+                --dataloader_workers 4 \
+                --annotation_path E:/Projects/CRL/Flood_CRL_demo/labelled_samples/annotations.csv \
+                --sampling_size 256 \
                 --labels flood \
                 --dec_dist implicit \
                 --d_steps_per_iter 1 \
@@ -11,4 +13,5 @@ python train.py --data_dir /exports/eddie/scratch/ywu5/CelebA_Dataset/ \
                 --prior linscm \
                 --sup_prop 1 \
                 --sup_coef 5 \
-                --sup_type ce
+                --sup_type ce \
+                --dataset flood
